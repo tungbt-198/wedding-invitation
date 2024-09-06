@@ -370,6 +370,49 @@
         document.querySelector(".playerIcon").addEventListener("click", playPause);
     };
 
+    function disableDeveloperMode() {
+        const restrictedKeys = [
+            { ctrl: true, shift: true, keyCode: 'I'.charCodeAt(0) },  // Ctrl+Shift+I (Inspect)
+            { ctrl: true, shift: true, keyCode: 'C'.charCodeAt(0) },  // Ctrl+Shift+C (Console)
+            { ctrl: true, shift: true, keyCode: 'J'.charCodeAt(0) },  // Ctrl+Shift+J (Debugger)
+            { ctrl: true, keyCode: 'U'.charCodeAt(0) },               // Ctrl+U (View Source)
+            { keyCode: 123 }                                          // F12 (Dev Tools)
+        ];
+    
+        function isRestrictedKey(e) {
+            return restrictedKeys.some(function (combination) {
+                return (
+                    (combination.ctrl === undefined || combination.ctrl === e.ctrlKey) &&
+                    (combination.shift === undefined || combination.shift === e.shiftKey) &&
+                    combination.keyCode === e.keyCode
+                );
+            });
+        }
+        
+        // Disable Developer tools
+        $(document).keydown(function (e) {
+            if (isRestrictedKey(e)) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        });
+        
+        // Disable right-click
+        $(document).on('contextmenu', function (e) {
+            e.preventDefault();
+            return false;
+        });
+    
+        // Disable touch and swipe gestures for developer tools on mobile devices
+        $(document).on('touchstart', function (e) {
+            if (e.touches.length > 2) { // More than two fingers
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+
     $(function () {
         pageScroll();
         mobileMenuOutsideClick();
@@ -383,6 +426,7 @@
         donateModal();
         $('#header').backgroundSlider();
         initAudioPlayer();
+        disableDeveloperMode();
     });
 
 }());
