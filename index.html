@@ -500,35 +500,31 @@
         const rankValue = getParameterByName('rank');
         
         const sectionTitleElement = document.querySelector('.section-title-h4');
-        const sectionTitleLoiMoiElement = document.querySelector('.section-title-p');
+        const sectionSubTitleElement = document.querySelector('.section-title-p');
 
         if (nameValue && rankValue) {
 
             sectionTitleElement.innerHTML = `<i style="color: #a78c32;"> Kính mời: ${rankValue} ${nameValue}</i>`;
+            const eranks = ['thầy', 'cô', 'anh', 'chị'];
 
             if (rankValue === 'bạn') {
-                sectionTitleLoiMoiElement.innerHTML = `
-            <i style="color: rebeccapurple;">Trân trọng mời bạn tới dự hôn lễ của mình</i>.<br>
+                sectionSubTitleElement.innerHTML = `
+            <i style="color: rebeccapurple;">Trân trọng mời ${rankValue} tới dự hôn lễ của mình</i>.<br>
             Sự hiện diện của ${rankValue} là niềm vui và hạnh phúc lớn nhất cho vợ chồng chúng mình.
         `;
-            } else if (rankValue === 'anh') {
-                sectionTitleLoiMoiElement.innerHTML = `
-            <i style="color: rebeccapurple;">Em rất mong anh có thể tới dự hôn lễ của em</i>.<br>
-            Sự hiện diện của ${rankValue} là niềm vui và hạnh phúc lớn nhất cho vợ chồng chúng em.
-        `;
-            } else if (rankValue === 'chị') {
-                sectionTitleLoiMoiElement.innerHTML = `
-            <i style="color: rebeccapurple;">Em rất mong chị có thể tới dự hôn lễ của em</i>.<br>
+            } else if (eranks.includes(rankValue)) {
+                sectionSubTitleElement.innerHTML = `
+            <i style="color: rebeccapurple;">Em rất mong ${rankValue} có thể tới dự hôn lễ của em</i>.<br>
             Sự hiện diện của ${rankValue} là niềm vui và hạnh phúc lớn nhất cho vợ chồng chúng em.
         `;
             } else if (rankValue === 'em') {
-                sectionTitleLoiMoiElement.innerHTML = `
-            <i style="color: rebeccapurple;">Anh/Chị rất mong em có thể tới dự hôn lễ của Anh/Chị</i>.<br>
+                sectionSubTitleElement.innerHTML = `
+            <i style="color: rebeccapurple;">Anh/Chị rất mong ${rankValue} có thể tới dự hôn lễ của Anh/Chị</i>.<br>
             Sự hiện diện của ${rankValue} là niềm vui và hạnh phúc lớn nhất cho vợ chồng Anh/Chị.
         `;
             }
             sectionTitleElement.style.fontSize = '25px';
-            sectionTitleLoiMoiElement.style.fontSize = '20px';
+            sectionSubTitleElement.style.fontSize = '20px';
         }
         else {
             sectionTitleElement.style.display = 'none';
